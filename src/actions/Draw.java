@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.*;
 
-public class Draw implements Constants {
+abstract class Draw implements Constants {
     public BufferedImage imgPlayer() throws IOException{
         return ImageIO.read(new File(IMG_PLAYER));
     }
