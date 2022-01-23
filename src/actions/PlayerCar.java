@@ -1,4 +1,4 @@
-package Drawing;
+package actions;
 
 import java.awt.*;
 import java.io.IOException;
@@ -86,6 +86,4 @@ public class PlayerCar extends Draw{
     public void setMoveP(char moveP){
         this.moveP =  moveP;
     }
-    
-
 }

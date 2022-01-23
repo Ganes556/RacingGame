@@ -1,8 +1,6 @@
-import java.io.IOException;
-
 import javax.swing.*;
 public class GameFrame extends JFrame {
-    GameFrame() throws IOException{        
+    GameFrame() throws Exception{        
         this.add(new GamePanel());
         this.setTitle("Car Game");        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        

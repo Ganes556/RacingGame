@@ -1,4 +1,4 @@
-package Drawing;
+package actions;
 import java.awt.*;
 public class GameOver extends Draw{
     private int sizeFontGameOver = 40;

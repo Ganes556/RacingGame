@@ -1,45 +1,50 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
-
 import javax.swing.*;
-import Drawing.*;
+
+import actions.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class GamePanel extends JPanel implements ActionListener,KeyListener,Constants{
     
     private EnemyCar enemyCar;
     private PlayerCar playerCar;
-    private int batasLevel = 590;
+    private int limitLevel = 590;
 
     private int speed;       
-    
-    private Lines lines;    
+       
     private Map map;
     private Score score;
     private GameOver gameOver;
    
-    private Boolean restart = false;
-    
-    // int countScore =0;
-    boolean running = false;
-    Timer timer;
+    private Boolean restart = false;    
+    private AudioInputStream audioInputStream;
+    private Clip clip = AudioSystem.getClip();
+    private boolean running = false;
+    private Timer timer;
 	
 
-    GamePanel() throws IOException{
+    GamePanel() throws Exception{
+        
         speed = 5;                                              
         
         map = new Map();
 
         enemyCar = new EnemyCar();
-        
-        lines = new Lines();
+                
 
         playerCar = new PlayerCar();
 
         score = new Score();
 
         gameOver = new GameOver();
-
+        
+        
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));  
         this.setBackground(Color.red);
         this.setFocusable(true);
@@ -55,60 +60,73 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener,Cons
         try{
 
             map.draw(g);
-            playerCar.draw(g);
-            lines.draw(g);
+            playerCar.draw(g);            
             enemyCar.draw(g);
+
             if(running){
                 score.draw(g);
             }else{                                
-                gameOver.draw(g,score.getScore());
+                gameOver.draw(g,score.getScore());                
+                clip.close();
                 running = false; 
                 restart = false;           
             }
             
-        } catch (IOException e) {System.out.println(e.toString());}   
+        } catch (IOException e) {System.out.println(e.toString());}
        
     }
   
     public void nextLevel(){
-        if(batasLevel == 0 && speed != 30){            
+        if(limitLevel == 0 && speed != 30){            
             speed++;
-            batasLevel=590;            
+            limitLevel=590;
         }
         
     }
-    public void gameStart() throws IOException{        
+    public void startBackSound()throws Exception{
+        clip.close();
+        audioInputStream = AudioSystem.getAudioInputStream(new File(SOUND_BACKGROUND).getAbsoluteFile());
+        clip.open(audioInputStream);
+        clip.start();
+    }
+
+    public void gameStart() throws Exception{                  
         running = true;        
 		timer = new Timer(20,this);
 		timer.start();
-        lines.setFirstAddLines();
+        startBackSound();
+        map.setFirstAddLines();
         enemyCar.setAddEnemies();
+        map.setFirstAddTrees();
     }
     
-    public void gameRestart() throws IOException{
+    public void gameRestart() throws Exception{
         speed = 5;
         timer.stop();
+        map.setClear();        
         enemyCar.setClear();
-        lines.setClear();
-        playerCar.setResetPosPlayer();
         enemyCar.setSpace(220);
-        gameStart();        
+        playerCar.setResetPosPlayer();
+        score.setScore(0);        
+        gameStart();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            if(running){               
-                batasLevel--;
+            if(running){
+                if(!clip.isRunning()) startBackSound();
+                limitLevel--;
                 running = playerCar.checkCollisions(enemyCar.getEnemies());
-                nextLevel();
                 playerCar.setMovePlayer();
-                lines.setMoveLines(speed);
+                map.setMoveLines(speed);
+                map.setMoveTrees(speed);
                 enemyCar.setEnemiesMove(speed, score);                        
                 enemyCar.setMakeSpace(speed);
-            }else if(restart && !running){
+                nextLevel();
+            }else if(restart && !running){                                
                 gameRestart();                
             }
-        } catch (IOException er) {
+        } catch (Exception er) {
             System.out.println(er);
         
         }
