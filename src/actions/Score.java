@@ -8,10 +8,10 @@ public class Score extends Draw{
     public void draw(Graphics g){
         g.setFont(new Font(fontFamily,Font.BOLD,sizeFont));
         FontMetrics metrics =  g.getFontMetrics(g.getFont());
-                
-        g.setColor(Color.white);
         // Score
+        g.setColor(Color.white);
         g.drawString("Score", 320, sizeFont);        
+        // Value of score
         g.drawString(String.valueOf(score), (320 + metrics.stringWidth("Score")/2)-metrics.stringWidth(String.valueOf(score))/2,  sizeFont + 30);
     }
     public int getScore() {

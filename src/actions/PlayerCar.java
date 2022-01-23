@@ -23,10 +23,8 @@ public class PlayerCar extends Draw{
     @Override
     public void draw(Graphics g) throws IOException{        
         int y = PLAYER_Y+(moveUpDown); 
-        int x = RIGHT_LEFT_POS_CAR[moveRightLeft];
-        // g.setColor(Color.green);
-        g.drawImage(imgPlayer(), x, y, null);
-        // g.fillRect(x, y ,CAR_SIZE_WIDTH,CAR_SIZE_HEIGHT);
+        int x = RIGHT_LEFT_POS_CAR[moveRightLeft];        
+        g.drawImage(imgPlayer(), x, y, null);        
     }
 
     // another
