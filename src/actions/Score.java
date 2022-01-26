@@ -14,9 +14,11 @@ public class Score extends Draw{
         // Value of score
         g.drawString(String.valueOf(score), (320 + metrics.stringWidth("Score")/2)-metrics.stringWidth(String.valueOf(score))/2,  sizeFont + 30);
     }
+    // getter
     public int getScore() {
         return score;
     }
+    // setter
     public void setScore(int score) {
         this.score =score;
     }

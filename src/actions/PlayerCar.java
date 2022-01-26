@@ -1,7 +1,6 @@
 package actions;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 
@@ -21,7 +20,7 @@ public class PlayerCar extends Draw{
     private char moveP = 'R';
 
     @Override
-    public void draw(Graphics g) throws IOException{        
+    public void draw(Graphics g) throws Exception{        
         int y = PLAYER_Y+(moveUpDown); 
         int x = RIGHT_LEFT_POS_CAR[moveRightLeft];        
         g.drawImage(imgPlayer(), x, y, null);        

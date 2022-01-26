@@ -1,10 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import javax.swing.*;
-
 import actions.*;
+import java.io.File;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -21,10 +19,11 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener,Cons
     private Map map;
     private Score score;
     private GameOver gameOver;
-   
     private Boolean restart = false;    
+
     private AudioInputStream audioInputStream;
     private Clip clip = AudioSystem.getClip();
+
     private boolean running = false;
     private Timer timer;
 	
@@ -37,28 +36,22 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener,Cons
 
         enemyCar = new EnemyCar();
                 
-
         playerCar = new PlayerCar();
 
         score = new Score();
 
         gameOver = new GameOver();
         
-        
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));  
         this.setBackground(Color.red);
         this.setFocusable(true);
         this.addKeyListener(this);        
         gameStart();
-
-    }
+    }    
 
     @Override
-    public void paint(Graphics g) { 
-        // agar update ui sebelumnya 
-        super.paintComponent(g);             
+    public void paintComponent(Graphics g) {                 
         try{
-
             map.draw(g);
             playerCar.draw(g);            
             enemyCar.draw(g);
@@ -72,7 +65,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener,Cons
                 restart = false;           
             }
             
-        } catch (IOException e) {System.out.println(e.toString());}
+        } catch (Exception e) {System.out.println(e.toString());}
        
     }
   
@@ -85,7 +78,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener,Cons
     }
     public void startBackSound()throws Exception{
         clip.close();
-        audioInputStream = AudioSystem.getAudioInputStream(new File(SOUND_BACKGROUND).getAbsoluteFile());
+        audioInputStream = AudioSystem.getAudioInputStream(new File(SOUND_BACKGROUND));
         clip.open(audioInputStream);
         clip.start();
     }
@@ -110,6 +103,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener,Cons
         score.setScore(0);        
         gameStart();
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

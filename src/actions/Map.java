@@ -1,6 +1,5 @@
 package actions;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 
@@ -21,8 +20,9 @@ public class Map extends Draw{
     private int LINES_Y = 5;   
     private ArrayList <Tree> trees = new ArrayList<Tree>();
     private ArrayList <Rectangle> Lines = new ArrayList<Rectangle>();
+
     @Override
-    public void draw(Graphics g) throws IOException{
+    public void draw(Graphics g) throws Exception{
         g.drawImage(imgRoad(),0, 0, null);
         for(Rectangle line : Lines){            
             g.setColor(Color.white);
@@ -32,6 +32,7 @@ public class Map extends Draw{
             g.drawImage(tree.img, tree.x,tree.y, null);
         }        
     }
+    // setter
     public void setFirstAddTrees() throws Exception{
         int x1 = (195/2)-imgTree().getWidth();
         int x2 = 400-imgTree().getWidth();

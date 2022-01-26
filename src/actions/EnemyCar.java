@@ -1,6 +1,5 @@
 package actions;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,14 +22,11 @@ public class EnemyCar extends Draw{
     private int space = 220;
 
     Random rand = new Random();
-    ArrayList <Enemy> Enemies = new ArrayList<Enemy>();
-    // ArrayList <Rectangle> colLimit  = new ArrayList<Rectangle>();
+    ArrayList <Enemy> Enemies = new ArrayList<Enemy>();    
     @Override
-    public void draw(Graphics g) throws IOException{        
-        for(Enemy rect : Enemies){
-            // g.setColor(Color.red);
-            g.drawImage(rect.img, rect.x, rect.y, null);
-            // g.fillRect(rect.x, rect.y ,rect.width,rect.height);
+    public void draw(Graphics g) throws Exception{        
+        for(Enemy rect : Enemies){            
+            g.drawImage(rect.img, rect.x, rect.y, null);            
         }
     }
 
@@ -40,13 +36,13 @@ public class EnemyCar extends Draw{
     }    
     
     // setter 
-    public void setAddEnemies() throws IOException{
+    public void setAddEnemies() throws Exception{
         int x = RIGHT_LEFT_POS_CAR[Math.abs(rand.nextInt()%2)];
         int y = ENEMY_Y-CAR_SIZE_HEIGHT;
         Enemies.add(new Enemy(x,y,imgEnemy(),CAR_SIZE_WIDTH,CAR_SIZE_HEIGHT));        
     }
     
-    public void setEnemiesMove(int speed, Score score) throws IOException{
+    public void setEnemiesMove(int speed, Score score) throws Exception{
         if(Enemies.size() > 0){
             for(int i =0; i < Enemies.size(); i++){
                 Enemy oldEnemy = Enemies.get(i);

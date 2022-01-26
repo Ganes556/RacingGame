@@ -14,7 +14,7 @@ public class GameOver extends Draw{
         g.setColor(new Color(0,0,0,150));
         g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        // game over
+        // gameOver
         g.setColor(Color.red);
         g.drawString("Game Over", SCREEN_WIDTH/2-metrics.stringWidth("Game Over")/2, SCREEN_HEIGHT/4);
 
@@ -25,7 +25,7 @@ public class GameOver extends Draw{
         g.drawString("Score", SCREEN_WIDTH/2-metrics2.stringWidth("Score")/2, (SCREEN_HEIGHT/4)+sizeFontGameOver+10);
         g.drawString(String.valueOf(score), SCREEN_WIDTH/2-metrics2.stringWidth(String.valueOf(score))/2, (SCREEN_HEIGHT/4)+sizeFontGameOver*2+10);
         
-        // press enter to restart
+        // press enter
         g.setColor(new Color(255,255,255,127));
         g.setFont(new Font(fontFamily,Font.BOLD,sizeFontPressEnter));
         FontMetrics metrics3 = g.getFontMetrics(g.getFont());
